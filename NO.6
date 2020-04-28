@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <string.h>
+#include <algorithm>
+
+using namespace std;
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        vector<string> result;
+        result.resize(numRows);
+        string tmp;
+        if(numRows == 1)
+            return s;
+        else if(numRows == 2){
+            for(int i=0;i<s.size();i++){
+                tmp = s.at(i);
+                result[i%2].append(tmp);
+            }
+        }
+        else{
+            for(int i=0;i<s.size();i++){
+                if(i%(numRows+numRows-2) >= 0 && i%(numRows+numRows-2) <= (numRows-1)){
+                    tmp = s.at(i);
+                    result[i%(numRows+numRows-2)].append(tmp);
+                }
+                else{
+                    tmp = s.at(i);
+                    result[(numRows+numRows-2) - i%(numRows+numRows-2)].append(tmp);
+                }
+            }
+        }
+        string res;
+        for(int i=0;i<result.size();i++){
+            res.append(result[i]);
+        }
+        return res;
+    }
+};
+
+
+int main(){
+    Solution sol;
+    string in = "ABCD";
+    string res;
+    res = sol.convert(in,2);
+    cout << res << endl;
+    system("pause");
+    return 0;
+}
